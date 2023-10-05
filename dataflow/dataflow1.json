@@ -29,10 +29,10 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "NationRegion",
+						"referenceName": "Nation_Region",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "NationAndRegion"
 				}
 			],
 			"transformations": [
@@ -40,7 +40,7 @@
 					"name": "RemoveNullRows"
 				},
 				{
-					"name": "NationRegion"
+					"name": "Join"
 				}
 			],
 			"scriptLines": [
@@ -79,8 +79,8 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> NationRegion",
-				"NationRegion sink(allowSchemaDrift: true,",
+				"     broadcast: 'auto')~> Join",
+				"Join sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          {C_CUSTKEY     C_NAME     C_ADDRESS     C_NATIONKEY     C_PHONE     C_ACCTBAL     C_MKTSEGMENT     C_COMMENT} as string",
@@ -93,7 +93,7 @@
 				"          N_REGIONKEY,",
 				"          R_REGIONKEY,",
 				"          R_NAME",
-				"     )) ~> sink1"
+				"     )) ~> NationAndRegion"
 			]
 		}
 	}
