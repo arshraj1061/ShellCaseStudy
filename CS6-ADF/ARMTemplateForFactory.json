@@ -1,0 +1,624 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "CS6-ADF"
+		},
+		"LinkedServiceCS6_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LinkedServiceCS6'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/NationRegion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "C_CUSTKEY\tC_NAME\tC_ADDRESS\tC_NATIONKEY\tC_PHONE\tC_ACCTBAL\tC_MKTSEGMENT\tC_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "customer.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "C_CUSTKEY",
+						"type": "String"
+					},
+					{
+						"name": "C_NAME",
+						"type": "String"
+					},
+					{
+						"name": "C_ADDRESS",
+						"type": "String"
+					},
+					{
+						"name": "C_NATIONKEY",
+						"type": "String"
+					},
+					{
+						"name": "C_PHONE",
+						"type": "String"
+					},
+					{
+						"name": "C_ACCTBAL",
+						"type": "String"
+					},
+					{
+						"name": "C_MKTSEGMENT",
+						"type": "String"
+					},
+					{
+						"name": "C_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/lineitem')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "lineitem.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "L_ORDERKEY",
+						"type": "String"
+					},
+					{
+						"name": "L_PARTKEY",
+						"type": "String"
+					},
+					{
+						"name": "L_SUPPKEY",
+						"type": "String"
+					},
+					{
+						"name": "L_LINENUMBER",
+						"type": "String"
+					},
+					{
+						"name": "L_QUANTITY",
+						"type": "String"
+					},
+					{
+						"name": "L_EXTENDEDPRICE",
+						"type": "String"
+					},
+					{
+						"name": "L_DISCOUNT",
+						"type": "String"
+					},
+					{
+						"name": "L_TAX",
+						"type": "String"
+					},
+					{
+						"name": "L_RETURNFLAG",
+						"type": "String"
+					},
+					{
+						"name": "L_LINESTATUS",
+						"type": "String"
+					},
+					{
+						"name": "L_SHIPDATE",
+						"type": "String"
+					},
+					{
+						"name": "L_COMMITDATE",
+						"type": "String"
+					},
+					{
+						"name": "L_RECEIPTDATE",
+						"type": "String"
+					},
+					{
+						"name": "L_SHIPINSTRUCT",
+						"type": "String"
+					},
+					{
+						"name": "L_SHIPMODE",
+						"type": "String"
+					},
+					{
+						"name": "L_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/nation')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "nation.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "N_NATIONKEY",
+						"type": "String"
+					},
+					{
+						"name": "N_NAME",
+						"type": "String"
+					},
+					{
+						"name": "N_REGIONKEY",
+						"type": "String"
+					},
+					{
+						"name": "N_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/orders')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "orders.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "O_ORDERKEY",
+						"type": "String"
+					},
+					{
+						"name": "O_CUSTKEY",
+						"type": "String"
+					},
+					{
+						"name": "O_ORDERSTATUS",
+						"type": "String"
+					},
+					{
+						"name": "O_TOTALPRICE",
+						"type": "String"
+					},
+					{
+						"name": "O_ORDERDATE",
+						"type": "String"
+					},
+					{
+						"name": "O_ORDERPRIORITY",
+						"type": "String"
+					},
+					{
+						"name": "O_CLERK",
+						"type": "String"
+					},
+					{
+						"name": "O_SHIPPRIORITY",
+						"type": "String"
+					},
+					{
+						"name": "O_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/part')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "part.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "P_PARTKEY\tP_NAME\tP_MFGR\tP_BRAND\tP_TYPE\tP_SIZE\tP_CONTAINER\tP_RETAILPRICE\tP_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/partsupp')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "partsupp.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "PS_PARTKEY",
+						"type": "String"
+					},
+					{
+						"name": "PS_SUPPKEY",
+						"type": "String"
+					},
+					{
+						"name": "PS_AVAILQTY",
+						"type": "String"
+					},
+					{
+						"name": "PS_SUPPLYCOST",
+						"type": "String"
+					},
+					{
+						"name": "PS_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/region')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "region.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "R_REGIONKEY",
+						"type": "String"
+					},
+					{
+						"name": "R_NAME",
+						"type": "String"
+					},
+					{
+						"name": "R_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/supplier')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "supplier.csv",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": "\t",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "S_SUPPKEY",
+						"type": "String"
+					},
+					{
+						"name": "S_NAME",
+						"type": "String"
+					},
+					{
+						"name": "S_ADDRESS",
+						"type": "String"
+					},
+					{
+						"name": "S_NATIONKEY",
+						"type": "String"
+					},
+					{
+						"name": "S_PHONE",
+						"type": "String"
+					},
+					{
+						"name": "S_ACCTBAL",
+						"type": "String"
+					},
+					{
+						"name": "S_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LinkedServiceCS6')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LinkedServiceCS6_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "customer",
+								"type": "DatasetReference"
+							},
+							"name": "customer"
+						},
+						{
+							"dataset": {
+								"referenceName": "nation",
+								"type": "DatasetReference"
+							},
+							"name": "nation"
+						},
+						{
+							"dataset": {
+								"referenceName": "region",
+								"type": "DatasetReference"
+							},
+							"name": "region"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "NationRegion",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "RemoveNullRows"
+						},
+						{
+							"name": "NationRegion"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          C_CUSTKEY as integer,",
+						"          C_NAME as string,",
+						"          C_ADDRESS as string,",
+						"          C_NATIONKEY as integer,",
+						"          C_PHONE as string,",
+						"          C_ACCTBAL as float,",
+						"          C_MKTSEGMENT as string,",
+						"          C_COMMENT as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> customer",
+						"source(output(",
+						"          N_NATIONKEY as integer,",
+						"          N_NAME as string,",
+						"          N_REGIONKEY as integer,",
+						"          N_COMMENT as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> nation",
+						"source(output(",
+						"          R_REGIONKEY as integer,",
+						"          R_NAME as string,",
+						"          R_COMMENT as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> region",
+						"customer alterRow(deleteIf(isNull(C_CUSTKEY)||isNull(C_NAME)||isNull(C_ADDRESS)||isNull(C_NATIONKEY)||isNull(C_PHONE)||isNull(C_ACCTBAL)||isNull(C_MKTSEGMENT))) ~> RemoveNullRows",
+						"nation, region join(N_REGIONKEY == R_REGIONKEY,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> NationRegion",
+						"NationRegion sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          {C_CUSTKEY     C_NAME     C_ADDRESS     C_NATIONKEY     C_PHONE     C_ACCTBAL     C_MKTSEGMENT     C_COMMENT} as string",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     mapColumn(",
+						"          N_NATIONKEY,",
+						"          N_NAME,",
+						"          N_REGIONKEY,",
+						"          R_REGIONKEY,",
+						"          R_NAME",
+						"     )) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/customer')]",
+				"[concat(variables('factoryId'), '/datasets/nation')]",
+				"[concat(variables('factoryId'), '/datasets/region')]",
+				"[concat(variables('factoryId'), '/datasets/NationRegion')]"
+			]
+		}
+	]
+}
