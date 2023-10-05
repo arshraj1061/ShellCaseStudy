@@ -1,0 +1,41 @@
+{
+	"name": "nation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedServiceCS6",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "nation.csv",
+				"container": "datasetscasestudy"
+			},
+			"columnDelimiter": "\t",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "N_NATIONKEY",
+				"type": "String"
+			},
+			{
+				"name": "N_NAME",
+				"type": "String"
+			},
+			{
+				"name": "N_REGIONKEY",
+				"type": "String"
+			},
+			{
+				"name": "N_COMMENT",
+				"type": "String"
+			}
+		]
+	}
+}

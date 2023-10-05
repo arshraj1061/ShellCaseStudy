@@ -1,0 +1,61 @@
+{
+	"name": "orders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedServiceCS6",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "orders.csv",
+				"container": "datasetscasestudy"
+			},
+			"columnDelimiter": "\t",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "O_ORDERKEY",
+				"type": "String"
+			},
+			{
+				"name": "O_CUSTKEY",
+				"type": "String"
+			},
+			{
+				"name": "O_ORDERSTATUS",
+				"type": "String"
+			},
+			{
+				"name": "O_TOTALPRICE",
+				"type": "String"
+			},
+			{
+				"name": "O_ORDERDATE",
+				"type": "String"
+			},
+			{
+				"name": "O_ORDERPRIORITY",
+				"type": "String"
+			},
+			{
+				"name": "O_CLERK",
+				"type": "String"
+			},
+			{
+				"name": "O_SHIPPRIORITY",
+				"type": "String"
+			},
+			{
+				"name": "O_COMMENT",
+				"type": "String"
+			}
+		]
+	}
+}

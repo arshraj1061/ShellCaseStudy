@@ -1,0 +1,37 @@
+{
+	"name": "region",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedServiceCS6",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "region.csv",
+				"container": "datasetscasestudy"
+			},
+			"columnDelimiter": "\t",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "R_REGIONKEY",
+				"type": "String"
+			},
+			{
+				"name": "R_NAME",
+				"type": "String"
+			},
+			{
+				"name": "R_COMMENT",
+				"type": "String"
+			}
+		]
+	}
+}
