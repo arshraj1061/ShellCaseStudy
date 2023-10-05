@@ -29,7 +29,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "Nation_Region",
+						"referenceName": "DelimitedText1",
 						"type": "DatasetReference"
 					},
 					"name": "NationAndRegion"
@@ -82,9 +82,6 @@
 				"     broadcast: 'auto')~> Join",
 				"Join sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          {C_CUSTKEY     C_NAME     C_ADDRESS     C_NATIONKEY     C_PHONE     C_ACCTBAL     C_MKTSEGMENT     C_COMMENT} as string",
-				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     mapColumn(",
