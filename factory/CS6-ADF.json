@@ -1,0 +1,9 @@
+{
+	"name": "CS6-ADF",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c25d6a17-f429-4858-9577-e57a08fd8f42",
+		"tenantId": "dce87315-8ffa-4a01-ab40-0de5a7214b2f"
+	}
+}
