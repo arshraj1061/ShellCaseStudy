@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "CS6-ADF"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"LinkedServiceCS6_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LinkedServiceCS6'"
@@ -37,6 +41,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
 					"LinkedServiceCS6_connectionString": {
 						"value": "[parameters('LinkedServiceCS6_connectionString')]"

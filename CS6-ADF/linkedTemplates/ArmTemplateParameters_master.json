@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "CS6-ADF"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"LinkedServiceCS6_connectionString": {
 			"value": ""
 		},
