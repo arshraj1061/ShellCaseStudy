@@ -63,6 +63,38 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Nation_Region')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceCS6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "datasetscasestudy"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "C_CUSTKEY\tC_NAME\tC_ADDRESS\tC_NATIONKEY\tC_PHONE\tC_ACCTBAL\tC_MKTSEGMENT\tC_COMMENT",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceCS6')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/customer')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -546,10 +578,10 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "NationRegion",
+								"referenceName": "Nation_Region",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
+							"name": "NationAndRegion"
 						}
 					],
 					"transformations": [
@@ -557,7 +589,7 @@
 							"name": "RemoveNullRows"
 						},
 						{
-							"name": "NationRegion"
+							"name": "Join"
 						}
 					],
 					"scriptLines": [
@@ -596,8 +628,8 @@
 						"     joinType:'inner',",
 						"     matchType:'exact',",
 						"     ignoreSpaces: false,",
-						"     broadcast: 'auto')~> NationRegion",
-						"NationRegion sink(allowSchemaDrift: true,",
+						"     broadcast: 'auto')~> Join",
+						"Join sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
 						"          {C_CUSTKEY     C_NAME     C_ADDRESS     C_NATIONKEY     C_PHONE     C_ACCTBAL     C_MKTSEGMENT     C_COMMENT} as string",
@@ -610,7 +642,7 @@
 						"          N_REGIONKEY,",
 						"          R_REGIONKEY,",
 						"          R_NAME",
-						"     )) ~> sink1"
+						"     )) ~> NationAndRegion"
 					]
 				}
 			},
@@ -618,7 +650,7 @@
 				"[concat(variables('factoryId'), '/datasets/customer')]",
 				"[concat(variables('factoryId'), '/datasets/nation')]",
 				"[concat(variables('factoryId'), '/datasets/region')]",
-				"[concat(variables('factoryId'), '/datasets/NationRegion')]"
+				"[concat(variables('factoryId'), '/datasets/Nation_Region')]"
 			]
 		}
 	]
