@@ -74,7 +74,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> region",
-				"customer alterRow(deleteIf(isNull(C_CUSTKEY) || isNull(C_NAME) || isNull(C_ADDRESS) || isNull(C_NATIONKEY) || isNull(C_PHONE) || isNull(C_ACCTBAL) || isNull(C_MKTSEGMENT))) ~> RemoveNullRows",
+				"customer alterRow(deleteIf(isNull(C_CUSTKEY)||isNull(C_NAME)||isNull(C_ADDRESS)||isNull(C_NATIONKEY)||isNull(C_PHONE)||isNull(C_ACCTBAL)||isNull(C_MKTSEGMENT))) ~> RemoveNullRows",
 				"nation, region join(N_REGIONKEY == R_REGIONKEY,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
