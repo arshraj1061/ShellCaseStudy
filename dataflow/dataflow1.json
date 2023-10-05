@@ -1,0 +1,100 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "customer",
+						"type": "DatasetReference"
+					},
+					"name": "customer"
+				},
+				{
+					"dataset": {
+						"referenceName": "nation",
+						"type": "DatasetReference"
+					},
+					"name": "nation"
+				},
+				{
+					"dataset": {
+						"referenceName": "region",
+						"type": "DatasetReference"
+					},
+					"name": "region"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "NationRegion",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "RemoveNullRows"
+				},
+				{
+					"name": "NationRegion"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          C_CUSTKEY as integer,",
+				"          C_NAME as string,",
+				"          C_ADDRESS as string,",
+				"          C_NATIONKEY as integer,",
+				"          C_PHONE as string,",
+				"          C_ACCTBAL as float,",
+				"          C_MKTSEGMENT as string,",
+				"          C_COMMENT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> customer",
+				"source(output(",
+				"          N_NATIONKEY as integer,",
+				"          N_NAME as string,",
+				"          N_REGIONKEY as integer,",
+				"          N_COMMENT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> nation",
+				"source(output(",
+				"          R_REGIONKEY as integer,",
+				"          R_NAME as string,",
+				"          R_COMMENT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> region",
+				"customer alterRow(deleteIf(isNull(C_CUSTKEY) || isNull(C_NAME) || isNull(C_ADDRESS) || isNull(C_NATIONKEY) || isNull(C_PHONE) || isNull(C_ACCTBAL) || isNull(C_MKTSEGMENT))) ~> RemoveNullRows",
+				"nation, region join(N_REGIONKEY == R_REGIONKEY,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> NationRegion",
+				"NationRegion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {C_CUSTKEY     C_NAME     C_ADDRESS     C_NATIONKEY     C_PHONE     C_ACCTBAL     C_MKTSEGMENT     C_COMMENT} as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          N_NATIONKEY,",
+				"          N_NAME,",
+				"          N_REGIONKEY,",
+				"          R_REGIONKEY,",
+				"          R_NAME",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
